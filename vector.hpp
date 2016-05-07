@@ -12,6 +12,7 @@
 #include <stdio.h>
 template <typename T>
 class Vector {
+protected:
     T* arr;
     int capacity;
     int Size;
