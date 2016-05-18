@@ -12,9 +12,17 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     ContainerVector<int>k;
-    k.push_back(7);
+    k.push_back(1);
+    k.push_back(2);
+    k.push_back(3);
+    k.push_back(4);
+    k.erase(k.begin());
     
-   // cout << k.begin() << endl;
+    for (ContainerVector<int>::ConIter p = k.begin(); p != k.end(); ++p) {
+        cout << *p << " ";
+    }
+    cout << endl;
+    
     cout << k.size() << endl;
     return 0;
 }

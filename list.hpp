@@ -20,6 +20,7 @@ protected:
     public:
         Node* next;
         T val;
+        Node() { }
         Node(T data) : next(NULL), val(data) { }
         ~Node() { }
         bool operator!=(Node* other) { return (val != other -> val && next != other -> next); }
@@ -42,19 +43,18 @@ public:
         friend class Node;
         Node* p;
     public:
-        ListIterator(Node* l) :
-        p(l)
-        { }
-        ListIterator operator++() {
+        ListIterator() { }
+        ListIterator(Node* l) : p(l) { }
+        ListIterator operator++() { //+
             p = p != NULL ? p -> next : p;
             return p;
         }
-        bool operator!=(ListIterator other) { return p != other.p; }
-        bool operator==(ListIterator other) { return p == other.p; }
-        T operator*() { return p -> val; }
+        bool operator!=(ListIterator other) { return p != other.p; } //+
+        bool operator==(ListIterator other) { return p == other.p; } //+
+        T operator*() { return p -> val; } //+
     };
     
-    int remove(ListIterator it); //= -
+    int remove(ListIterator it); //+
     ListIterator begin() { return ListIterator(head); } //+
     ListIterator end() { //+
         Node* current = head;
@@ -88,13 +88,19 @@ int List<T>::getSize() {
 
 template<class T>
 void List<T>::add(T data) {
-    Node* to_add = new Node(data);
+    Node* newNode = new Node;
     if (head == NULL) {
-        head = to_add;
+        head = newNode;
+        newNode -> next = NULL;
+        newNode -> val = data;
     } else {
-        Node* current;
-        for (current = head; current -> next != NULL; current = current -> next)
-            current -> next = to_add;
+        Node* current = head;
+        while (current -> next != NULL) {
+            current = current -> next;
+        }
+        current -> next = newNode;
+        newNode -> next = NULL;
+        newNode -> val = data;
     }
     size++;
 }
