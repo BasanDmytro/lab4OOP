@@ -37,8 +37,15 @@ public:
             return p;
         }
         bool operator==(ConIter other) { return p == other.p; }
+        bool operator=(ConIter other) { p = other.p; return true; }
         bool operator!=(ConIter other) { return p != other.p; }
-        T operator*() { return p -> val; }
+   //     void operator+(int count) { for(int i = 0; i < count; i++) p++;}
+        T operator*() {
+            if (p) {
+                return p -> val;
+            }
+            return T();
+}
     };
     
     ConIter begin() { return ConIter(this -> head); }
@@ -49,6 +56,8 @@ public:
         return ConIter(current);
     }
     void erase(ConIter it);
+    T back();
+    T front();
 };
 
 template <typename T>
@@ -90,4 +99,17 @@ void ContainerVector<T>::erase(ConIter it) {
 }
 
 
+template <typename T>
+T ContainerVector<T>::back() {
+    ConIter iterForReturnBack = begin();
+    for (int i = 0; i < this -> getSize() - 1; i++) {
+        ++iterForReturnBack;
+    }
+    return *iterForReturnBack;
+}
+
+template <typename T>
+T ContainerVector<T>::front() {
+    return *begin();
+}
 #endif /* ContainerVector_hpp */

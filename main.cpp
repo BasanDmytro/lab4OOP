@@ -8,16 +8,19 @@
 
 #include <iostream>
 #include "ContainerVector.hpp"
+
 using namespace std;
 
 int main(int argc, const char * argv[]) {
     ContainerVector<int>k;
-    k.push_back(1);
+
+  //  k.push_back(1);
     k.push_back(2);
     k.push_back(3);
     k.push_back(4);
-    k.erase(k.begin());
-    
+
+    cout << k.front() << endl;
+    cout << k.back() << endl;
     for (ContainerVector<int>::ConIter p = k.begin(); p != k.end(); ++p) {
         cout << *p << " ";
     }
