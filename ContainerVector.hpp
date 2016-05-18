@@ -11,49 +11,50 @@
 
 #include "vector.hpp"
 #include "list.hpp"
-#include <stdio.h>
+#include <vector>
 
 template <typename T>
-class ContainerVector: protected Vector<T>, protected List<T> {
-    static List<T> element;
-   // friend class ListContainerVector;
+class ContainerVector: public List<T>, protected std::vector<T> {
+    
 public:
-    class ListContainerVector {
-        T value;
-        T begin() {
-            element.begin();
-        }
-        T end() {
-            element.end();
-        }
     
-    };
-    
-    void push_back(T data) {
-        element.add(data);
-    }
-    
-    bool empty() {
-       if (element.head == NULL) {
-           return true;
-       } else {
-           return false;
-       }
-    }
-    
-    int size() {
-        element.getSize();
-    }
-    
-    void erase(int position) {
-        element.remove(position);
-    }
-    
-    void clear() {
-        element.purge();
-    }
-    
-    
+    void push_back(T data);
+    bool empty();
+    int size();
+    void erase(int position);
+    void clear();
 };
+
+template <typename T>
+void ContainerVector<T>::push_back(T data) {
+    this -> add(data);
+}
+
+template <typename T>
+bool ContainerVector<T>::empty() {
+    if (this -> getSize() == 0) {
+        return true;
+    } else {
+        return false;
+    }
+    
+}
+
+template <typename T>
+int ContainerVector<T>::size() {
+    return this -> getSize();
+}
+
+template <typename T>
+void ContainerVector<T>::erase(int position) {
+    this -> remove(position);
+}
+
+template <typename T>
+void ContainerVector<T>::clear() {
+    
+}
+
+
 
 #endif /* ContainerVector_hpp */

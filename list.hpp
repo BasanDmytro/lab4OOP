@@ -16,7 +16,7 @@ template<typename T>
 class List {
 protected:
     class Node {
-        friend class Iterator;
+        friend class ListIterator;
     public:
         Node* next;
         T val;
@@ -26,10 +26,11 @@ protected:
         bool operator==(Node* other) { return (val == other -> val && next == other -> next); }
     };
     Node* head;
-    int size;
+    
     friend class Node;
     friend class ListIterator;
 public:
+    int size;
     List();
     ~List();
     int getSize(); //+
@@ -123,6 +124,7 @@ void List<T>::purge() {
         head = head -> next;
         delete tmp;
     }
+    size = 0;
     //    head = NULL;
 }
 
