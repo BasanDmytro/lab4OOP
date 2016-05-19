@@ -13,8 +13,6 @@
 #include "list.hpp"
 #include <vector>
 
-
-
 template <typename T>
 class ContainerVector: protected List<T>, protected std::vector<T> {
     
@@ -38,14 +36,16 @@ public:
         }
         bool operator==(ConIter other) { return p == other.p; }
         bool operator=(ConIter other) { p = other.p; return true; }
+        T operator=(T other) {
+            Node* current;
+            current -> val = other;
+            p = current;
+            p -> val = other;
+            return p;
+        }
         bool operator!=(ConIter other) { return p != other.p; }
    //     void operator+(int count) { for(int i = 0; i < count; i++) p++;}
-        T operator*() {
-            if (p) {
-                return p -> val;
-            }
-            return T();
-}
+        T operator*() { if (p) { return p -> val; } return T(); }
     };
     
     ConIter begin() { return ConIter(this -> head); }
@@ -58,6 +58,9 @@ public:
     void erase(ConIter it);
     T back();
     T front();
+    T operator[](int pos);
+    T at1(int pos);
+    T operator=(T value) { this -> val = value; return *this;}
 };
 
 template <typename T>
@@ -111,5 +114,35 @@ T ContainerVector<T>::back() {
 template <typename T>
 T ContainerVector<T>::front() {
     return *begin();
+}
+
+template <typename T>
+T ContainerVector<T>::operator[](int pos) {
+    int count = 0;
+    ContainerVector<T>::ConIter iter = begin();
+    if (pos == 0) {
+        return *begin();
+    }
+    while (count < pos) {
+        ++iter;
+        count++;
+    }
+    return *iter;
+    
+}
+
+template <typename T>
+T ContainerVector<T>::at1(int pos) {
+    int count = 0;
+    ContainerVector<T>::ConIter iter = begin();
+    if (pos == 0) {
+        return *begin();
+    }
+    while (count < pos) {
+        ++iter;
+        count++;
+    }
+    return *iter;
+    
 }
 #endif /* ContainerVector_hpp */

@@ -51,6 +51,7 @@ public:
         }
         bool operator!=(ListIterator other) { return p != other.p; } //+
         bool operator==(ListIterator other) { return p == other.p; } //+
+        ListIterator operator=(T other) { p -> val = other; return p; }
         T operator*() { return p -> val; } //+
     };
     
@@ -62,6 +63,7 @@ public:
             current = current -> next;
         return ListIterator(current);
     }
+    List operator=(T other) { this -> val = other; return *this; } //+
 };
 
 template<class T>
