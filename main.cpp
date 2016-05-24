@@ -19,41 +19,41 @@ void print(T element) {
 
 int main(int argc, const char * argv[]) {
     
-    ContainerVector<int> testElement;
+    ContainerVector<int> testContainerVector;
 
-    testElement.push_back(1);
-    testElement.push_back(7);
-    testElement.push_back(3);
-    testElement.push_back(4);
-    testElement.push_back(3);
-    testElement.push_back(9);
+    testContainerVector.push_back(1);
+    testContainerVector.push_back(7);
+    testContainerVector.push_back(3);
+    testContainerVector.push_back(4);
+    testContainerVector.push_back(3);
+    testContainerVector.push_back(9);
     
-    cout << "Size of testElement" << testElement.size() << endl;
+    cout << "Size of testContainerVector = " << testContainerVector.size() << endl << endl;
     
-    cout << "First element = " << testElement.at(0) << endl;
+    cout << "First element = " << testContainerVector.at(0) << endl << endl;;
     
-    cout << "Last element" << testElement.back() << endl;
+    cout << "Last element = " << testContainerVector.back() << endl << endl;;
     
-    if (is_sorted(testElement.begin(), testElement.end())) {
-        cout << "ContainerVector testElement is sorted" << endl;
+    if (is_sorted(testContainerVector.begin(), testContainerVector.end())) {
+        cout << "ContainerVector testContainerVector is sorted" << endl << endl;
     } else {
-        cout << "ContainerVector testElement is not sorted" << endl;
+        cout << "ContainerVector testContainerVector is not sorted" << endl << endl;
     }
  
-    auto hasValue = find(testElement.begin(), testElement.end(), 7);
+    auto hasValue = find(testContainerVector.begin(), testContainerVector.end(), 7);
     
-    if (hasValue != testElement.end()) {
-        cout << "testElement has value: " << "7" << '\n';
+    if (hasValue != testContainerVector.end()) {
+        cout << "testContainerVector has value: " << "7" << endl << endl;
     } else {
-        cout << "testElement hasn't value: " << "7" << '\n';
+        cout << "testContainerVector hasn't value: " << "7" << endl << endl;
     }
     
-    long countOfElment = count(testElement.begin(), testElement.end(), 3);
+    long countOfElment = count(testContainerVector.begin(), testContainerVector.end(), 3);
     
-    cout << "Count of element(3) in testElement" << countOfElment << endl;
+    cout << "Count of number(=3) in testContainerVector = " << countOfElment << endl << endl;
     
-    cout << "Print testElement" << endl;
-    for_each(testElement.begin(), testElement.end(), print<int>);
+    cout << "Print testContainerVector" << endl;
+    for_each(testContainerVector.begin(), testContainerVector.end(), print<int>);
     
     return 0;
 }
