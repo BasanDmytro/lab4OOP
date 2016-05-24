@@ -18,10 +18,10 @@ class ContainerVector: protected List<T>, protected std::vector<T> {
     
 public:
     typedef T                 value_type;
-    typedef value_type&        reference;
-    typedef const value_type& const_reference;
-    typedef value_type*       pointer;
-    typedef const value_type* const_pointer;
+ //   typedef value_type&        reference;
+ //   typedef const value_type& const_reference;
+ //   typedef value_type*       pointer;
+ //   typedef const value_type* const_pointer;
     
     using typename List<T>::Node;
     void push_back(T data);
@@ -31,7 +31,7 @@ public:
     void clear();
     
     
-    class ConIter: protected List<T>::ListIterator {
+    class ConIter {
         Node *p;
     public:
         typedef std::bidirectional_iterator_tag iterator_category;
@@ -74,13 +74,6 @@ public:
     bool operator=(T value) { std::cout << "error1" << std::endl;}
     bool operator=(bool value) { std::cout << "error1" << std::endl;}
     bool operator-(T value) { std::cout << "error1" << std::endl;}
-    void swap(ConIter first, ConIter second) {
-        typedef typename std::iterator_traits<ConIter>::value_type value_type;
-        value_type tmp;
-        tmp = *first;
-        *first = *second;
-        *second = tmp;
-    }
 };
 
 

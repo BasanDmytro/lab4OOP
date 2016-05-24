@@ -37,9 +37,6 @@ public:
     typedef T* pointer;
     typedef T& reference;
     
-  
-    
-    
     int size;
     List();
     ~List();

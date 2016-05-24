@@ -34,13 +34,13 @@ int main(int argc, const char * argv[]) {
     
     cout << "Last element = " << testContainerVector.back() << endl << endl;;
     
-    if (is_sorted(testContainerVector.begin(), testContainerVector.end())) {
+    if (std::is_sorted(testContainerVector.begin(), testContainerVector.end())) {
         cout << "ContainerVector testContainerVector is sorted" << endl << endl;
     } else {
         cout << "ContainerVector testContainerVector is not sorted" << endl << endl;
     }
  
-    auto hasValue = find(testContainerVector.begin(), testContainerVector.end(), 7);
+    auto hasValue = std::find(testContainerVector.begin(), testContainerVector.end(), 7);
     
     if (hasValue != testContainerVector.end()) {
         cout << "testContainerVector has value: " << "7" << endl << endl;
@@ -48,12 +48,14 @@ int main(int argc, const char * argv[]) {
         cout << "testContainerVector hasn't value: " << "7" << endl << endl;
     }
     
-    long countOfElment = count(testContainerVector.begin(), testContainerVector.end(), 3);
+    long countOfElment = std::count(testContainerVector.begin(), testContainerVector.end(), 3);
     
     cout << "Count of number(=3) in testContainerVector = " << countOfElment << endl << endl;
     
     cout << "Print testContainerVector" << endl;
-    for_each(testContainerVector.begin(), testContainerVector.end(), print<int>);
+    std::for_each(testContainerVector.begin(), testContainerVector.end(), print<int>);
+    
+    cout << endl;
     
     return 0;
 }
