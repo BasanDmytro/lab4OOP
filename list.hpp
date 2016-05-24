@@ -31,6 +31,15 @@ protected:
     friend class Node;
     friend class ListIterator;
 public:
+    typedef std::bidirectional_iterator_tag iterator_category;
+    typedef T value_type;
+    typedef std::ptrdiff_t difference_type;
+    typedef T* pointer;
+    typedef T& reference;
+    
+  
+    
+    
     int size;
     List();
     ~List();
@@ -43,6 +52,11 @@ public:
         friend class Node;
         Node* p;
     public:
+        typedef std::bidirectional_iterator_tag iterator_category;
+        typedef T value_type;
+        typedef std::ptrdiff_t difference_type;
+        typedef const T* pointer;
+        typedef const T& reference;
         ListIterator() { }
         ListIterator(Node* l) : p(l) { }
         ListIterator operator++() { //+
@@ -51,6 +65,11 @@ public:
         }
         bool operator!=(ListIterator other) { return p != other.p; } //+
         bool operator==(ListIterator other) { return p == other.p; } //+
+        bool operator<=(ListIterator other) { return p <= other.p; }
+        bool operator>=(ListIterator other) { return p >= other.p; }
+        bool operator<(ListIterator other) { return p < other.p; }
+        bool operator>(ListIterator other) { return p > other.p; }
+        ListIterator operator-(ListIterator other) { return (p - other.p);}
         ListIterator operator=(T other) { p -> val = other; return p; }
         T operator*() { return p -> val; } //+
     };
@@ -63,7 +82,15 @@ public:
             current = current -> next;
         return ListIterator(current);
     }
-    List operator=(T other) { this -> val = other; return *this; } //+
+    List* operator=(T other) { this -> swap(other); return *this; } //+
+   // bool operator=(T value) { std::cout << "error1" << std::endl;}
+    void swap(ListIterator first, ListIterator second) {
+        typedef typename std::iterator_traits<ListIterator>::value_type value_type;
+        value_type tmp;
+        tmp = *first;
+        *first = *second;
+        *second = tmp;
+    }
 };
 
 template<class T>
@@ -75,7 +102,7 @@ List<T>::~List() {
     Node* to_remove = head;
     while(to_remove != NULL) {
         current = current -> next;
-        delete to_remove;
+     //   delete to_remove;
         to_remove = current;
     }
     head = NULL;

@@ -13,10 +13,16 @@
 #include "list.hpp"
 #include <vector>
 
-template <typename T>
+template <class T >
 class ContainerVector: protected List<T>, protected std::vector<T> {
     
 public:
+    typedef T                 value_type;
+    typedef value_type&        reference;
+    typedef const value_type& const_reference;
+    typedef value_type*       pointer;
+    typedef const value_type* const_pointer;
+    
     using typename List<T>::Node;
     void push_back(T data);
     bool empty();
@@ -24,9 +30,16 @@ public:
     void erase(int position);
     void clear();
     
+    
     class ConIter: protected List<T>::ListIterator {
         Node *p;
     public:
+        typedef std::bidirectional_iterator_tag iterator_category;
+        typedef T value_type;
+        typedef std::ptrdiff_t difference_type;
+        typedef T* pointer;
+        typedef T& reference;
+
         ConIter();
         ConIter(Node* l) : p(l) { }
         typedef typename List<T>::ListIterator iterator;
@@ -34,20 +47,18 @@ public:
             p = p != NULL ? p -> next : p;
             return p;
         }
+
         bool operator==(ConIter other) { return p == other.p; }
+        bool operator<(ConIter *other) { return *p < *other; }
+        bool operator>(ConIter *other) { return p > *other; }
+        bool operator>=(ConIter *other) { return p >= *other; }
+        bool operator<=(ConIter *other) { return p <= *other; }
         bool operator=(ConIter other) { p = other.p; return true; }
-        T operator=(T other) {
-            Node* current;
-            current -> val = other;
-            p = current;
-            p -> val = other;
-            return p;
-        }
         bool operator!=(ConIter other) { return p != other.p; }
-   //     void operator+(int count) { for(int i = 0; i < count; i++) p++;}
+        void operator+(int count) { for(int i = 0; i < count; i++) ++p;}
         T operator*() { if (p) { return p -> val; } return T(); }
     };
-    
+   
     ConIter begin() { return ConIter(this -> head); }
     ConIter end() {
         Node* current = this -> head;
@@ -58,10 +69,21 @@ public:
     void erase(ConIter it);
     T back();
     T front();
-    T operator[](int pos);
-    T at1(int pos);
-    T operator=(T value) { this -> val = value; return *this;}
+    T operator[](T pos);
+    T at(int pos);
+    bool operator=(T value) { std::cout << "error1" << std::endl;}
+    bool operator=(bool value) { std::cout << "error1" << std::endl;}
+    bool operator-(T value) { std::cout << "error1" << std::endl;}
+    void swap(ConIter first, ConIter second) {
+        typedef typename std::iterator_traits<ConIter>::value_type value_type;
+        value_type tmp;
+        tmp = *first;
+        *first = *second;
+        *second = tmp;
+    }
 };
+
+
 
 template <typename T>
 void ContainerVector<T>::push_back(T data) {
@@ -117,7 +139,7 @@ T ContainerVector<T>::front() {
 }
 
 template <typename T>
-T ContainerVector<T>::operator[](int pos) {
+T ContainerVector<T>::operator[](T pos) {
     int count = 0;
     ContainerVector<T>::ConIter iter = begin();
     if (pos == 0) {
@@ -132,7 +154,7 @@ T ContainerVector<T>::operator[](int pos) {
 }
 
 template <typename T>
-T ContainerVector<T>::at1(int pos) {
+T ContainerVector<T>::at(int pos) {
     int count = 0;
     ContainerVector<T>::ConIter iter = begin();
     if (pos == 0) {
@@ -145,4 +167,6 @@ T ContainerVector<T>::at1(int pos) {
     return *iter;
     
 }
+
+
 #endif /* ContainerVector_hpp */

@@ -9,32 +9,51 @@
 #include <iostream>
 #include "ContainerVector.hpp"
 #include <vector>
-#include <algorithm>
+
 using namespace std;
 
-bool wayToSort(int i, int j) { return i > j; }
+template <class T>
+void print(T element) {
+    cout << element << " ";
+}
 
 int main(int argc, const char * argv[]) {
-    ContainerVector<int>k;
+    
+    ContainerVector<int> testElement;
 
-    k.push_back(1);
-    k.push_back(7);
-    k.push_back(3);
-    k.push_back(4);
+    testElement.push_back(1);
+    testElement.push_back(7);
+    testElement.push_back(3);
+    testElement.push_back(4);
+    testElement.push_back(3);
+    testElement.push_back(9);
     
+    cout << "Size of testElement" << testElement.size() << endl;
     
-    cout << "First element = " << k.at1(0) << endl;
-
-    cout << k.front() << endl;
-    cout << k.back() << endl;
+    cout << "First element = " << testElement.at(0) << endl;
     
-   // sort(k.begin(), k.end(), greater<int>());
+    cout << "Last element" << testElement.back() << endl;
     
-    for (ContainerVector<int>::ConIter p = k.begin(); p != k.end(); ++p) {
-        cout << *p << " ";
+    if (is_sorted(testElement.begin(), testElement.end())) {
+        cout << "ContainerVector testElement is sorted" << endl;
+    } else {
+        cout << "ContainerVector testElement is not sorted" << endl;
     }
-    cout << endl;
+ 
+    auto hasValue = find(testElement.begin(), testElement.end(), 7);
     
-    cout << k.size() << endl;
+    if (hasValue != testElement.end()) {
+        cout << "testElement has value: " << "7" << '\n';
+    } else {
+        cout << "testElement hasn't value: " << "7" << '\n';
+    }
+    
+    long countOfElment = count(testElement.begin(), testElement.end(), 3);
+    
+    cout << "Count of element(3) in testElement" << countOfElment << endl;
+    
+    cout << "Print testElement" << endl;
+    for_each(testElement.begin(), testElement.end(), print<int>);
+    
     return 0;
 }
