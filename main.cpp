@@ -17,9 +17,19 @@ void print(T element) {
     cout << element << " ";
 }
 
+template<class Iterator, class Fun>
+Fun for_each_my(Iterator first, Iterator last, Fun f) {
+    while (first!=last) {
+        f(*first);
+        ++first;
+    }
+    return f;
+}
+
 int main(int argc, const char * argv[]) {
     
     ContainerVector<int> testContainerVector;
+    vector<int> testVector;
 
     testContainerVector.push_back(1);
     testContainerVector.push_back(7);
@@ -27,6 +37,13 @@ int main(int argc, const char * argv[]) {
     testContainerVector.push_back(4);
     testContainerVector.push_back(3);
     testContainerVector.push_back(9);
+    
+    testVector.push_back(1);
+    testVector.push_back(7);
+    testVector.push_back(3);
+    testVector.push_back(4);
+    testVector.push_back(3);
+    testVector.push_back(9);
     
     cout << "Size of testContainerVector = " << testContainerVector.size() << endl << endl;
     
@@ -52,9 +69,22 @@ int main(int argc, const char * argv[]) {
     
     cout << "Count of number(=3) in testContainerVector = " << countOfElment << endl << endl;
     
-    cout << "Print testContainerVector" << endl;
-    std::for_each(testContainerVector.begin(), testContainerVector.end(), print<int>);
+    // print containers by for_each
     
+    cout << "Print testContainerVector by std::for_each" << endl;
+    std::for_each(testContainerVector.begin(), testContainerVector.end(), print<int>);
+    cout << endl;
+    
+    cout << "Print testContainerVector by my for_each" << endl;
+    for_each_my(testContainerVector.begin(), testContainerVector.end(), print<int>);
+    cout << endl;
+    
+    cout << "Print testVector by std::for_each" << endl;
+    std::for_each(testVector.begin(), testVector.end(), print<int>);
+    cout << endl;
+    
+    cout << "Print testVector by my for_each" << endl;
+    for_each_my(testVector.begin(), testVector.end(), print<int>);
     cout << endl;
     
     return 0;

@@ -9,9 +9,9 @@
 #ifndef ContainerVector_hpp
 #define ContainerVector_hpp
 
-#include "vector.hpp"
 #include "list.hpp"
 #include <vector>
+//#include "vector.hpp"
 
 template <class T >
 class ContainerVector: protected List<T>, protected std::vector<T> {
@@ -29,7 +29,6 @@ public:
     int size();
     void erase(int position);
     void clear();
-    
     
     class ConIter {
         Node *p;
